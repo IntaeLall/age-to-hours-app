@@ -38682,9 +38682,7 @@ var render = function() {
               _vm._v("Birthday: " + _vm._s(_vm.formatDate(_vm.birthday)))
             ]),
             _vm._v(" "),
-            _c("p", [
-              _vm._v("You are " + _vm._s(_vm.birthdayInHours) + " hours old")
-            ])
+            _c("p", [_vm._v("You are " + _vm._s(_vm.birthdayInHours))])
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -54307,7 +54305,10 @@ function formatDate(date) {
 function birthdayToHours(birthday) {
   var currentDate = new Date();
   var birthDate = new Date(birthday).getTime();
-  return Math.round((currentDate - birthDate) / (1000 * 60 * 60));
+  var years = Math.round((currentDate - birthDate) / (1000 * 60 * 60 * 24 * 365));
+  var days = Math.round((currentDate - birthDate) / (1000 * 60 * 60 * 24));
+  var hours = Math.round((currentDate - birthDate) / (1000 * 60 * 60));
+  return "".concat(years, " years, or ").concat(days, " days or ").concat(hours, " hours old");
 }
 
 /***/ }),

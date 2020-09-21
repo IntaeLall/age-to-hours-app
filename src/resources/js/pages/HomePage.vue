@@ -19,7 +19,7 @@
         <loading class="mb-4" :loading="loading" />
         <div v-if="!loading && inputsFilled">
             <p>Birthday: {{ formatDate(birthday) }}</p>
-            <p>You are {{ birthdayInHours }} hours old</p>
+            <p>You are {{ birthdayInHours }}</p>
         </div>
         <button 
             class="mb-4" 
