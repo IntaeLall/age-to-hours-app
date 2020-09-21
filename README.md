@@ -1,4 +1,6 @@
 
+<img src="./screenshots/home-page.png"/>
+<img src="./screenshots/user-submissions-page.png"/>
 
 ## Installation
 
@@ -16,5 +18,4 @@ Once the environment has finished setting up, run the following commands from th
 - `docker-compose run --rm npm install`
 - `docker-compose run --rm npm run dev`
 
-
-The site should now be running on port 8080.
+The site in development mode should now be running on port 8080.
