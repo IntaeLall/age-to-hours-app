@@ -16,10 +16,11 @@
                 v-model="birthday"
             >
         </div>
-        <p v-show="inputsFilled">Birthday: {{ formatDate(birthday) }}</p>
-        <p v-show="inputsFilled">
-            You are {{ birthdayInHours }} hours old
-        </p>
+        <loading class="mb-4" :loading="loading" />
+        <div v-if="!loading && inputsFilled">
+            <p>Birthday: {{ formatDate(birthday) }}</p>
+            <p>You are {{ birthdayInHours }} hours old</p>
+        </div>
         <button 
             class="mb-4" 
             @click="submitBirthday()"
@@ -40,20 +41,28 @@
 <script>
 import axios from 'axios'
 import { formatDate, birthdayToHours } from '../helpers/global';
+import loading from '../components/loading'
 export default {
     name: 'HomePage',
+    components: {
+        loading
+    },
     data: function() {
         return {
             name: null,
             birthday: null,
             serverErrorMessage: null,
+            loading: false
         };
     },
     methods: {
         async submitBirthday(){
+            this.loading = true
             try {
                 const response = await axios.post(`/api/user-submissions?name=${this.name}&birthday=${this.birthday}`)
+                this.loading = false
             } catch(error) {
+                this.loading = false
                 this.serverErrorMessage = error.response.data.message
             }
             this.name = null
