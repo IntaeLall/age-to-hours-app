@@ -2007,11 +2007,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    birthdayToHours: function birthdayToHours(birthday) {
-      var currentDate = new Date();
-      var birthDate = new Date(birthday).getTime();
-      return Math.round((currentDate - birthDate) / (1000 * 60 * 60));
-    },
     submitBirthday: function submitBirthday() {
       var _this = this;
 
@@ -2047,11 +2042,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 6]]);
       }))();
     },
+    birthdayToHours: _helpers_global__WEBPACK_IMPORTED_MODULE_2__["birthdayToHours"],
     formatDate: _helpers_global__WEBPACK_IMPORTED_MODULE_2__["formatDate"]
   },
   computed: {
     birthdayInHours: function birthdayInHours() {
-      return this.birthdayToHours(this.birthday);
+      return Object(_helpers_global__WEBPACK_IMPORTED_MODULE_2__["birthdayToHours"])(this.birthday);
     },
     errorMessage: function errorMessage() {
       if (!this.name && !this.birthday) return "Please enter your name and birthday.";
@@ -2146,7 +2142,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   methods: {
-    formatDate: _helpers_global__WEBPACK_IMPORTED_MODULE_2__["formatDate"]
+    formatDate: _helpers_global__WEBPACK_IMPORTED_MODULE_2__["formatDate"],
+    birthdayToHours: _helpers_global__WEBPACK_IMPORTED_MODULE_2__["birthdayToHours"]
   }
 });
 
@@ -38495,7 +38492,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "nav",
-    { staticClass: "navbar navbar-light" },
+    { staticClass: "navbar navbar-light mb-5" },
     [
       _c(
         "router-link",
@@ -38711,7 +38708,7 @@ var render = function() {
             _vm._v(" "),
             _c("td", [_vm._v(_vm._s(_vm.formatDate(user.createdAt)))]),
             _vm._v(" "),
-            _c("td", [_vm._v("TBC")])
+            _c("td", [_vm._v(_vm._s(_vm.birthdayToHours(user.birthday)))])
           ])
         }),
         0
@@ -54149,18 +54146,24 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./resources/js/helpers/global.js ***!
   \****************************************/
-/*! exports provided: formatDate */
+/*! exports provided: formatDate, birthdayToHours */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "formatDate", function() { return formatDate; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "birthdayToHours", function() { return birthdayToHours; });
 function formatDate(date) {
   if (!date) {
     return '';
   }
 
   return new Date(date).toLocaleDateString('en-GB');
+}
+function birthdayToHours(birthday) {
+  var currentDate = new Date();
+  var birthDate = new Date(birthday).getTime();
+  return Math.round((currentDate - birthDate) / (1000 * 60 * 60));
 }
 
 /***/ }),

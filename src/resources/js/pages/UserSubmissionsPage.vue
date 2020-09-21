@@ -16,7 +16,7 @@
                     <td>{{ user.name }}</td>
                     <td>{{ formatDate(user.birthday) }}</td>
                     <td>{{ formatDate(user.createdAt) }}</td>
-                    <td>TBC</td>
+                    <td>{{ birthdayToHours(user.birthday) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -25,7 +25,7 @@
 
 <script>
 import axios from 'axios'
-import { formatDate } from '../helpers/global'
+import { birthdayToHours, formatDate } from '../helpers/global'
 export default {
     name: 'UserSubmissionsPage',
     data: function() {
@@ -38,7 +38,8 @@ export default {
         this.userSubmissions = response.data.data
     },
     methods: {
-        formatDate
+        formatDate,
+        birthdayToHours
     }
 }
 </script>

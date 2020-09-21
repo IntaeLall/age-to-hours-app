@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light">
+    <nav class="navbar navbar-light mb-5">
             <router-link tag="a" class="navbar-brand" to="/">
                 Home
             </router-link>

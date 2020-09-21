@@ -35,7 +35,7 @@
 
 <script>
 import axios from 'axios'
-import { formatDate } from '../helpers/global';
+import { formatDate, birthdayToHours } from '../helpers/global';
 export default {
     name: 'HomePage',
     data: function() {
@@ -45,11 +45,6 @@ export default {
         };
     },
     methods: {
-        birthdayToHours(birthday) {
-            const currentDate = new Date(); 
-            const birthDate = new Date(birthday).getTime();
-            return Math.round((currentDate - birthDate) / (1000*60*60));
-        },
         async submitBirthday(){
             try {
                 const response = await axios.post(`/api/user-submissions?name=${this.name}&birthday=${this.birthday}`)
@@ -59,11 +54,12 @@ export default {
             this.name = null
             this.birthday = null
         },
+        birthdayToHours,
         formatDate
     },
     computed: {
         birthdayInHours() {
-            return this.birthdayToHours(this.birthday);
+            return birthdayToHours(this.birthday);
         },
         errorMessage() {
             if(!this.name && !this.birthday) return "Please enter your name and birthday."
