@@ -30,6 +30,10 @@
         <div v-show="errorMessage" class="alert alert-warning" role="alert">
             {{ errorMessage }}
         </div>
+        <div v-show="serverErrorMessage" class="alert alert-danger" role="alert">
+            Not submitted.
+            {{ serverErrorMessage }}
+        </div>
     </div>
 </template>
 
@@ -42,14 +46,15 @@ export default {
         return {
             name: null,
             birthday: null,
+            serverErrorMessage: null,
         };
     },
     methods: {
         async submitBirthday(){
             try {
                 const response = await axios.post(`/api/user-submissions?name=${this.name}&birthday=${this.birthday}`)
-            } catch(e) {
-                console.log(error.response.data.message)
+            } catch(error) {
+                this.serverErrorMessage = error.response.data.message
             }
             this.name = null
             this.birthday = null

@@ -1996,6 +1996,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2003,7 +2007,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       name: null,
-      birthday: null
+      birthday: null,
+      serverErrorMessage: null
     };
   },
   methods: {
@@ -2028,7 +2033,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 6:
                 _context.prev = 6;
                 _context.t0 = _context["catch"](0);
-                console.log(error.response.data.message);
+                _this.serverErrorMessage = _context.t0.response.data.message;
 
               case 9:
                 _this.name = null;
@@ -38666,6 +38671,29 @@ var render = function() {
           attrs: { role: "alert" }
         },
         [_vm._v("\n        " + _vm._s(_vm.errorMessage) + "\n    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.serverErrorMessage,
+              expression: "serverErrorMessage"
+            }
+          ],
+          staticClass: "alert alert-danger",
+          attrs: { role: "alert" }
+        },
+        [
+          _vm._v(
+            "\n        Not submitted.\n        " +
+              _vm._s(_vm.serverErrorMessage) +
+              "\n    "
+          )
+        ]
       )
     ]
   )
