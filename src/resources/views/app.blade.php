@@ -15,6 +15,8 @@
 </head>
 <body>
 <div id="app">
+    <navbar></navbar>
+    <router-view></router-view>
 </div>
 <script src="{{ mix('js/app.js') }}" type="text/javascript"></script>
 </body>
