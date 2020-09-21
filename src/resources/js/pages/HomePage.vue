@@ -16,7 +16,7 @@
                 v-model="birthday"
             >
         </div>
-        <p v-show="inputsFilled">Birthday: {{formattedBirthday}}</p>
+        <p v-show="inputsFilled">Birthday: {{ formatDate(birthday) }}</p>
         <p v-show="inputsFilled">
             You are {{ birthdayInHours }} hours old
         </p>
@@ -34,43 +34,46 @@
 </template>
 
 <script>
-    export default {
-        name: 'HomePage',
-        data: function() {
-            return {
-                name: null,
-                birthday: null,
-            };
+import axios from 'axios'
+import { formatDate } from '../helpers/global';
+export default {
+    name: 'HomePage',
+    data: function() {
+        return {
+            name: null,
+            birthday: null,
+        };
+    },
+    methods: {
+        birthdayToHours(birthday) {
+            const currentDate = new Date(); 
+            const birthDate = new Date(birthday).getTime();
+            return Math.round((currentDate - birthDate) / (1000*60*60));
         },
-        methods: {
-            birthdayToHours(birthday) {
-                const currentDate = new Date(); 
-                const birthDate = new Date(birthday).getTime();
-                return Math.round((currentDate - birthDate) / (1000*60*60));
-            },
-            submitBirthday(){
-                //Send request
-                //Reset
-                this.name = null
-                this.birthday = null
+        async submitBirthday(){
+            try {
+                const response = await axios.post(`/api/user-submissions?name=${this.name}&birthday=${this.birthday}`)
+            } catch(e) {
+                console.log(error.response.data.message)
             }
+            this.name = null
+            this.birthday = null
         },
-        computed: {
-            birthdayInHours() {
-                return this.birthdayToHours(this.birthday);
-            },
-            formattedBirthday(){
-                return new Date(this.birthday).toLocaleDateString('en-GB')
-            },
-            errorMessage() {
-                if(!this.name && !this.birthday) return "Please enter your name and birthday"
-                if(!this.name) return "Please enter your name"
-                if(!this.birthday) return "Please enter your birthday"
-                return null
-            },
-            inputsFilled() {
-                return this.name && this.birthday
-            }
+        formatDate
+    },
+    computed: {
+        birthdayInHours() {
+            return this.birthdayToHours(this.birthday);
+        },
+        errorMessage() {
+            if(!this.name && !this.birthday) return "Please enter your name and birthday."
+            if(!this.name) return "Please enter your name."
+            if(!this.birthday) return "Please enter your birthday."
+            return null
+        },
+        inputsFilled() {
+            return this.name && this.birthday
         }
     }
+}
 </script>
