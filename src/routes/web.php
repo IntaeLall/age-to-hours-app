@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('app');
 });
+
+Route::get('/{catchall?}', function () {
+    return response()->view('app');
+})->where('catchall', '(.*)');
